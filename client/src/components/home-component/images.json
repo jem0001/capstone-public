@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Image 1",
+    "url": "/client/src/assets/GamesBG/Clash.png"
+  },
+  {
+    "id": 2,
+    "name": "Image 2",
+    "url": "/client/src/assets/GamesBG/Detectives.png"
+  },
+  {
+    "id": 3,
+    "name": "Image 3",
+    "url": "/client/src/assets/GamesBG/Drag.png"
+  },
+  {
+    "id": 4,
+    "name": "Image 4",
+    "url": "/client/src/assets/GamesBG/Explore.png"
+  },
+  {
+    "id": 5,
+    "name": "Image 5",
+    "url": "/client/src/assets/GamesBG/MemoryEasy.png"
+  },
+  {
+    "id": 6,
+    "name": "Image 6",
+    "url": "/client/src/assets/GamesBG/MemoryHard.png"
+  },
+  {
+    "id": 7,
+    "name": "Image 7",
+    "url": "/client/src/assets/GamesBG/Pair.png"
+  },
+  {
+    "id": 8,
+    "name": "Image 8",
+    "url": "/client/src/assets/GamesBG/Piece.png"
+  }
+]

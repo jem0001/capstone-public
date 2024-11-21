@@ -1,0 +1,47 @@
+[
+  {
+    "question": "Name a popular fruit people eat for breakfast",
+    "answers": [
+      { "answer": "Banana", "points": 40 },
+      { "answer": "Apple", "points": 30 },
+      { "answer": "Orange", "points": 20 },
+      { "answer": "Strawberries", "points": 10 }
+    ]
+  },
+  {
+    "question": "name something you do before going to bed",
+    "answers": [
+      { "answer": "Brush Teeth", "points": 40 },
+      { "answer": "Read a Book", "points": 30 },
+      { "answer": "Watch TV", "points": 20 },
+      { "answer": "Set Alarm", "points": 10 }
+    ]
+  },
+  {
+    "question": "name a popular pet",
+    "answers": [
+      { "answer": "Dog", "points": 50 },
+      { "answer": "Cat", "points": 30 },
+      { "answer": "Fish", "points": 10 },
+      { "answer": "Bird", "points": 5 }
+    ]
+  },
+  {
+    "question": "name a holiday that people celebrate with fireworks",
+    "answers": [
+      { "answer": "New Year's Eve", "points": 60 },
+      { "answer": "Independence Day", "points": 30 },
+      { "answer": "Chinese New Year", "points": 7 },
+      { "answer": "Diwali", "points": 3 }
+    ]
+  },
+  {
+    "question": "name something you bring to the beach",
+    "answers": [
+      { "answer": "Towel", "points": 40 },
+      { "answer": "Sunscreen", "points": 30 },
+      { "answer": "Beach Ball", "points": 20 },
+      { "answer": "Sunglasses", "points": 10 }
+    ]
+  }
+]

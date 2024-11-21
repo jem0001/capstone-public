@@ -1,0 +1,181 @@
+/* Fonts */
+.main-font {
+  font-family: "Francois One", sans-serif;
+  font-size: 3vw;
+}
+
+.game-font,
+.answer-font {
+  font-family: "Francois One", sans-serif;
+  font-size: 2rem;
+}
+
+.next-btn-font {
+  font-family: "Francois One", sans-serif;
+  font-size: 2vw;
+  color: white;
+}
+
+.wrong-answer-font {
+  font-family: "Francois One", sans-serif;
+  font-size: 15vw;
+  color: red;
+  border: 15px solid red;
+  border-radius: 15px;
+  background-color: rgba(255, 0, 0, 0.25);
+}
+
+.number-font {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 3vw;
+  font-weight: bold;
+}
+
+/* Imgs */
+.family-feud-logo {
+  width: 125vh;
+}
+
+/* Containers */
+.container-start {
+  background-image: linear-gradient(to bottom, #13235d, #000111);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.container-scoreboard {
+  background-image: url("imgs/family_feud_score.png");
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+.container-next-btn {
+  display: flex;
+  justify-content: center;
+  top: 70%;
+  min-width: 100vw;
+  position: absolute;
+}
+
+.container-round {
+  background-image: url("imgs/start_screen_bg.jpeg");
+  background-position: center;
+  background-size: 100%;
+  min-height: 100vh;
+}
+
+.container-answer {
+  width: 75%;
+  height: 570px;
+  display: flex;
+  flex-wrap: wrap;
+  perspective: 1000px;
+}
+
+.container-score {
+  width: 100%;
+}
+
+.container-break {
+  flex-basis: 100%;
+  height: 6vh;
+}
+
+/* Btns */
+.next-btn {
+  position: relative;
+  width: 10vw;
+  height: 10vh;
+  background-color: #275189;
+}
+
+/* Strike Modal */
+.modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content,
+.modal-header {
+  background-color: rgba(255, 0, 0, 0);
+  border: none;
+}
+
+.fade {
+  transition: 0.2s ease-in-out;
+}
+
+/* Start Pg */
+.link-start {
+  color: white;
+}
+
+.link-start:hover {
+  color: gray;
+}
+
+/* Scoreboard Page */
+.team-1 {
+  width: 168px;
+  height: 100px;
+  position: absolute;
+  left: 45vh;
+  top: 37vh;
+}
+
+.team-2 {
+  width: 168px;
+  height: 100px;
+  position: absolute;
+  right: 45vh;
+  top: 37vh;
+}
+
+/* Rounds  */
+.answer-card {
+  margin: 5px;
+  position: relative;
+  border: 5px solid white;
+  transform-style: preserve-3d;
+  transition: transform.5s;
+}
+
+.front-face,
+.back-face {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: blue;
+  backface-visibility: hidden;
+}
+
+.front-face {
+  transform: rotateX(180deg);
+}
+
+.back-face {
+  background-image: linear-gradient(to bottom, #1aa7ec, blue);
+}
+
+.oval {
+  width: 9vw;
+  height: 9vh;
+  background-color: #00008b;
+  border-radius: 50%;
+  justify-content: center;
+}
+
+.answer {
+  height: 100%;
+  background-color: #13235d;
+}
+
+.flip {
+  transform: rotateX(180deg);
+}

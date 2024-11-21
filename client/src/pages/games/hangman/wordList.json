@@ -1,0 +1,26 @@
+{
+  "name": "hangman",
+  "id": "1",
+  "questions": [
+    {
+      "question": "lokasyon ng araw tuwing umaga",
+      "correctAnswer": "silangan"
+    },
+    {
+      "question": "ano ang tawag sa pinaka malaking planeta sa ating solar system?",
+      "correctAnswer": "jupiter"
+    },
+    {
+      "question": "sino ang pambansang bayani ng pilipinas?",
+      "correctAnswer": "rizal"
+    },
+    {
+      "question": "anong hayop ang kilala sa tawag na 'hari ng gubat'?",
+      "correctAnswer": "leon"
+    },
+    {
+      "question": "ano ang pangunahing wika sa pilipinas?",
+      "correctAnswer": "filipino"
+    }
+  ]
+}

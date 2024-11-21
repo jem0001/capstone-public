@@ -1,0 +1,86 @@
+[
+  {
+    "name": "week-1",
+    "open": true,
+    "quarter": "quarter-1",
+    "lessonTitle": "Ang mga Simbolo sa Mapa"
+  },
+  {
+    "name": "week-2",
+    "open": true,
+    "quarter": "quarter-1",
+    "lessonTitle": "Kinalalagyan ng mga lalawigan sa rehiyon batay sa direksyon"
+  },
+  {
+    "name": "week-3",
+    "open": true,
+    "quarter": "quarter-1",
+    "lessonTitle": "Relatibong lokasyon ng mga lalawigan sa rehiyon"
+  },
+  {
+    "name": "week-4",
+    "open": true,
+    "quarter": "quarter-1",
+    "lessonTitle": "Katangian ng mga lalawigan sa rehiyon"
+  },
+  {
+    "name": "week-5",
+    "open": true,
+    "quarter": "quarter-1",
+    "lessonTitle": "Populasyon ng aking pamayanan"
+  },
+  {
+    "name": "week-6",
+    "open": true,
+    "quarter": "quarter-1",
+    "lessonTitle": "Populasyon ng mga lalawigan sa rehiyon"
+  },
+  {
+    "name": "week-7",
+    "open": true,
+    "quarter": "quarter-1",
+    "lessonTitle": "Katangiang Pisikal na Nagpapakita ng ibat-ibang Lalawigan sa Rehiyon"
+  },
+  {
+    "name": "week-8",
+    "open": true,
+    "quarter": "quarter-1",
+    "lessonTitle": "Mga anyong tubig at lupa ng aming rehiyon"
+  },
+  {
+    "name": "week-9",
+    "open": true,
+    "quarter": "quarter-1",
+    "lessonTitle": "Pagkakaugnay-ugnay ng mga Anyong Tubig at Anyong Lupa sa aking mga lalawigan at rehiyon"
+  },
+  {
+    "name": "week-10",
+    "open": true,
+    "quarter": "quarter-1",
+    "lessonTitle": "Paggawa ng mapa ng mahahalagang anyong tubig at anyong lupa sa sariling lalawigan at rehiyon at mga karating nito"
+  },
+  {
+    "name": "week-11",
+    "open": true,
+    "quarter": "quarter-1",
+    "lessonTitle": "Maagap at wastong pagtugon sa mga kalamidad"
+  },
+  {
+    "name": "week-12",
+    "open": true,
+    "quarter": "quarter-1",
+    "lessonTitle": "Mga pangunahing likas na yaman ng mga lalawigan sa rehiyon"
+  },
+  {
+    "name": "week-13",
+    "open": true,
+    "quarter": "quarter-1",
+    "lessonTitle": "Matalino at di matalinong pangangasiwa ng likas na yaman ng sariling lalawigan at rehiyon"
+  },
+  {
+    "name": "week-14",
+    "open": true,
+    "quarter": "quarter-1",
+    "lessonTitle": "Ang kapaligiran ng aking lalawigan at ang mga karatig na lalawigan sa rehiyon"
+  }
+]
