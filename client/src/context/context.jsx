@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-axios.defaults.baseURL = "http://localhost:3000/api/v1";
+axios.defaults.baseURL = "https://capstone-api-beta.vercel.app/api/v1";
 axios.defaults.withCredentials = true;
 const GlobalContext = createContext();
 
@@ -596,7 +596,8 @@ const GlobalProvider = ({ children }) => {
         showConfetti,
         setShowConfetti,
         handleConfettiComplete,
-      }}>
+      }}
+    >
       {children}
     </GlobalContext.Provider>
   );
