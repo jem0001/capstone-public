@@ -134,7 +134,11 @@ const login = async (req, res) => {
   // Create token
   const token = teacher.createToken();
   // Give cookie
-  res.cookie("token", token, { httpOnly: true });
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+  });
   res.status(200).json({ teacher, token, message: "Logged in" });
 };
 
