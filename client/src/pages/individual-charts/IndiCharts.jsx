@@ -24,8 +24,8 @@ const IndiCharts = () => {
   const { getOneStudent, studentFilter, setStudentFilter } = useGlobalContext();
   const { id } = useParams();
 
-  const totalGroupActs = 10;
   const [name, setName] = useState("");
+  const [totalGroupActs, setTotalGroupActs] = useState(0);
   const [totalPoints, setTotalPoints] = useState(0);
   const [completedGroupActs, setCompletedGroupActs] = useState(0);
 
@@ -34,6 +34,11 @@ const IndiCharts = () => {
       const response = await axios.get(
         `/students?id=${id}&quarter=${studentFilter.quarter}`
       );
+      const responseTwo = await axios.get(
+        `/activities?quarter=${studentFilter.quarter}&type=groupings`
+      );
+      setTotalGroupActs(responseTwo.data.nbHits);
+
       const students = response.data.students;
       setName(students[0].fullName);
       setCompletedGroupActs(students[0].completedGroupActs);
@@ -50,7 +55,8 @@ const IndiCharts = () => {
         <div
           className="bg-white grid w-full grid-cols-1 lg:grid-cols-3 gap-4 
         shadow-[0px_20px_20px_10px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024]
-           p-8 rounded-lg border-[#697565] border-4">
+           p-8 rounded-lg border-[#697565] border-4"
+        >
           <div className="flex justify-between col-span-3">
             <Typography variant="h4" color="blue-gray" className="">
               Points Distribution
@@ -64,7 +70,8 @@ const IndiCharts = () => {
                 value={studentFilter.quarter}
                 onChange={(val) => {
                   setStudentFilter({ ...studentFilter, quarter: val });
-                }}>
+                }}
+              >
                 <Option value="">All Quarters</Option>
                 <Option value="quarter-1">Quarter 1</Option>
                 <Option value="quarter-2">Quarter 2</Option>
@@ -78,7 +85,8 @@ const IndiCharts = () => {
             <div className="flex justify-around items-center p-4 border-[#697565] border-4 rounded-lg">
               <ProgressProvider
                 valueStart={0}
-                valueEnd={(completedGroupActs / totalGroupActs) * 100}>
+                valueEnd={(completedGroupActs / totalGroupActs) * 100}
+              >
                 {(value) => (
                   <div className="size-40">
                     <CircularProgressbarWithChildren
@@ -87,7 +95,8 @@ const IndiCharts = () => {
                         textColor: "red",
                         pathColor: "turquoise",
                         trailColor: "#003285",
-                      })}>
+                      })}
+                    >
                       {`${completedGroupActs}/${totalGroupActs}`}
                     </CircularProgressbarWithChildren>
                   </div>
