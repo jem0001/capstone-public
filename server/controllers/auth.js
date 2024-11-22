@@ -71,6 +71,14 @@ const register = async (req, res) => {
       pass: process.env.GMAIL_PASSWORD,
     },
     secure: true,
+    debug: true,
+    logger: true,
+  });
+
+  res.status(201).json({
+    teacher,
+    token,
+    message: "Please check your email for verification.",
   });
 
   await new Promise((resolve, reject) => {
@@ -102,12 +110,6 @@ const register = async (req, res) => {
         <p>Thank you,<br>Sayap Team</p>
       `,
   };
-
-  res.status(201).json({
-    teacher,
-    token,
-    message: "Please check your email for verification.",
-  });
 
   // Send email
   await new Promise((resolve, reject) => {
@@ -230,6 +232,12 @@ const forgotPassword = async (req, res) => {
     },
   });
 
+  res.status(200).json({
+    token,
+    status: true,
+    message: "Email sent, check your email",
+  });
+
   await new Promise((resolve, reject) => {
     // verify connection configuration
     transporter.verify(function (error, success) {
@@ -258,12 +266,6 @@ const forgotPassword = async (req, res) => {
       <p>Thank you,<br>Sayap Team</p>
     `,
   };
-
-  res.status(200).json({
-    token,
-    status: true,
-    message: "Email sent, check your email",
-  });
 
   await new Promise((resolve, reject) => {
     // send mail
