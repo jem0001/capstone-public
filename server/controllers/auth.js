@@ -70,7 +70,6 @@ const register = async (req, res) => {
       user: process.env.GMAIL,
       pass: process.env.GMAIL_PASSWORD,
     },
-    secure: true,
     debug: true,
     logger: true,
   });
