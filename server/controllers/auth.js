@@ -155,6 +155,7 @@ const login = async (req, res) => {
     secure: true,
     sameSite: "None",
     domain: "capstone-api-beta.vercel.app",
+    path: "/",
   });
   res.status(200).json({ teacher, token, message: "Logged in" });
 };
@@ -215,6 +216,7 @@ const logout = async (req, res) => {
     secure: true,
     sameSite: "None",
     domain: "capstone-api-beta.vercel.app",
+    path: "/",
   });
   res.status(200).json({ message: "Logout successful" });
 };
