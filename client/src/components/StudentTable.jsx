@@ -102,6 +102,7 @@ export function StudentTable({ handlePrint }) {
     studentFilter,
   } = useGlobalContext();
 
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = React.useState(false);
   const [qrOpen, setQrOpen] = React.useState(false);
   const [addOpen, setAddOpen] = React.useState(false);
@@ -131,6 +132,7 @@ export function StudentTable({ handlePrint }) {
   // set up section tab
   useEffect(() => {
     (async () => {
+      setLoading(true);
       const { students, totalPages } = await getAllStudents({
         limit: 0,
         batch: studentFilter.batch,
@@ -144,6 +146,7 @@ export function StudentTable({ handlePrint }) {
   // auto page adjustment, when result for that page is empty - potentially be deleted
   useEffect(() => {
     (async () => {
+      setLoading(true);
       const { students, totalPages, page } = await getAllStudents(
         studentFilter
       );
@@ -159,20 +162,24 @@ export function StudentTable({ handlePrint }) {
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
+
       console.log("ssssss", studentFilter.page);
-      const { students, totalPages, page } = await getAllStudents(
-        studentFilter
-      );
       const {
         data: { nbHits },
       } = await axios.get(
         `/activities?quarter=${studentFilter.quarter}&type=groupings`
       );
 
+      const { students, totalPages, page } = await getAllStudents(
+        studentFilter
+      );
+
       setStudents(students);
       setTotalPages(totalPages);
       setTotalGroupActs(nbHits);
       console.log(studentFilter);
+      setLoading(false);
     })();
   }, [studentFilter, changesFlag]);
 
@@ -182,7 +189,8 @@ export function StudentTable({ handlePrint }) {
         <CardHeader
           floated={false}
           shadow={false}
-          className="rounded-none overflow-visible">
+          className="rounded-none overflow-visible"
+        >
           <div className="mb-8 flex items-center justify-between gap-8 mt-2 ">
             <div className="flex gap-2 text-2xl">
               <MdDashboard className="" />
@@ -195,7 +203,8 @@ export function StudentTable({ handlePrint }) {
               <Button
                 className="flex w-40 gap-4 bg-[#059212] text-[white] "
                 size="sm"
-                onClick={handleAddOpen}>
+                onClick={handleAddOpen}
+              >
                 <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add student
               </Button>
 
@@ -204,7 +213,8 @@ export function StudentTable({ handlePrint }) {
                 size="sm"
                 onClick={() => {
                   handlePrint();
-                }}>
+                }}
+              >
                 <PrinterIcon strokeWidth={2} className="h-4 w-4" /> Print view
               </Button>
               <Button
@@ -214,7 +224,8 @@ export function StudentTable({ handlePrint }) {
                   navigate(
                     `/student/history/${studentFilter.batch}/${studentFilter.section}`
                   );
-                }}>
+                }}
+              >
                 <MdHistory className="h-4 w-4" />
                 Pts History
               </Button>
@@ -222,7 +233,8 @@ export function StudentTable({ handlePrint }) {
           </div>
           <Tabs
             value={studentFilter.quarter}
-            className="w-full my-4 bg-blue-gray-50 rounded-lg">
+            className="w-full my-4 bg-blue-gray-50 rounded-lg"
+          >
             <TabsHeader className="bg-blue-gray-50 ">
               {QUARTER_TABS.map(({ label, value }) => (
                 <Tab
@@ -238,7 +250,8 @@ export function StudentTable({ handlePrint }) {
                       search: "",
                     });
                     setSearchInput("");
-                  }}>
+                  }}
+                >
                   &nbsp;&nbsp;{label}&nbsp;&nbsp;
                 </Tab>
               ))}
@@ -268,12 +281,14 @@ export function StudentTable({ handlePrint }) {
                   });
                   setSearchInput("");
                   setChangesFlag(!changesFlag);
-                }}>
+                }}
+              >
                 {BATCH_ARRAY.map(({ name, flags }) => (
                   <Option
                     key={name}
                     value={name}
-                    className="flex items-center gap-2">
+                    className="flex items-center gap-2"
+                  >
                     {name}
                   </Option>
                 ))}
@@ -318,7 +333,8 @@ export function StudentTable({ handlePrint }) {
                 onChange={(val) => {
                   setStudentFilter({ ...studentFilter, sort: val, search: "" });
                   setSearchInput("");
-                }}>
+                }}
+              >
                 <Option value="lastName">Last Name [ A-Z ]</Option>
                 <Option value="-lastName">Last Name [ Z-A ]</Option>
                 <Option value="points">Points [ Ascending ]</Option>
@@ -326,10 +342,11 @@ export function StudentTable({ handlePrint }) {
               </Select>
             </div>
           </div>
-          {sections.length !== 0 && (
+          {sections.length !== 0 && !loading && (
             <Tabs
               value={studentFilter.section}
-              className="w-full mt-4 bg-blue-gray-50 rounded-lg">
+              className="w-full mt-4 bg-blue-gray-50 rounded-lg"
+            >
               <TabsHeader className="bg-blue-gray-50">
                 {sections.map((section) => (
                   <Tab
@@ -344,7 +361,8 @@ export function StudentTable({ handlePrint }) {
                         search: "",
                       });
                       setSearchInput("");
-                    }}>
+                    }}
+                  >
                     &nbsp;&nbsp;{section}&nbsp;&nbsp;
                   </Tab>
                 ))}
@@ -352,66 +370,26 @@ export function StudentTable({ handlePrint }) {
             </Tabs>
           )}
         </CardHeader>
-        {students.length === 0 ? (
-          <div>
-            <CardBody className="overflow-hidden px-0 ">
-              <table className="mt-4 w-full min-w-max table-auto text-left">
-                <thead>
-                  <tr>
-                    {TABLE_HEAD.map((head) => (
-                      <th key={head} className="p-4 bg-blue-gray-50">
-                        <Typography
-                          variant="small"
-                          color="black"
-                          className="font-normal leading-none">
-                          {head}
-                        </Typography>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-              </table>
-              <Typography
-                color="blue-gray"
-                className="font-normal text-center text-3xl mt-6">
-                No Students were found..
-              </Typography>
-            </CardBody>
-            <CardFooter className="flex items-center justify-between p-4 bg-blue-gray-50">
-              <Typography
-                variant="small"
-                color="blue-gray"
-                className="font-normal">
-                Page {0} of {0}
-              </Typography>
-              <div className="flex gap-2">
-                <Button variant="outlined" size="sm">
-                  Previous
-                </Button>
-                <Button variant="outlined" size="sm">
-                  Next
-                </Button>
-              </div>
-            </CardFooter>
-          </div>
-        ) : (
-          <div>
-            <CardBody className="overflow-x-scroll px-0 ">
-              <table className="mt-4 w-full min-w-max table-auto text-center">
-                <thead>
-                  <tr>
-                    {TABLE_HEAD.map((head) => (
-                      <th key={head} className="p-4 bg-blue-gray-50">
-                        <Typography
-                          variant="small"
-                          color="black"
-                          className="font-normal leading-none">
-                          {head}
-                        </Typography>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
+        <div>
+          <CardBody className="overflow-x-scroll px-0 ">
+            <table className="mt-4 w-full min-w-max table-auto text-center">
+              <thead>
+                <tr>
+                  {TABLE_HEAD.map((head) => (
+                    <th key={head} className="p-4 bg-blue-gray-50">
+                      <Typography
+                        variant="small"
+                        color="black"
+                        className="font-normal leading-none"
+                      >
+                        {head}
+                      </Typography>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+
+              {!loading && students.length !== 0 && (
                 <tbody>
                   {students.map(
                     (
@@ -444,7 +422,8 @@ export function StudentTable({ handlePrint }) {
                                 <Typography
                                   variant="small"
                                   color="blue-gray"
-                                  className="font-normal">
+                                  className="font-normal"
+                                >
                                   {fullName
                                     .split(" ")
                                     .map(
@@ -462,7 +441,8 @@ export function StudentTable({ handlePrint }) {
                               <Typography
                                 variant="small"
                                 color="blue-gray"
-                                className="font-normal">
+                                className="font-normal"
+                              >
                                 {studentId}
                               </Typography>
                             </div>
@@ -475,7 +455,8 @@ export function StudentTable({ handlePrint }) {
                               <Typography
                                 variant="small"
                                 color="blue-gray"
-                                className="font-normal">
+                                className="font-normal"
+                              >
                                 {individualPoints}
                               </Typography>
                             </div>
@@ -485,7 +466,8 @@ export function StudentTable({ handlePrint }) {
                               <Typography
                                 variant="small"
                                 color="blue-gray"
-                                className="font-normal">
+                                className="font-normal"
+                              >
                                 {groupingsPoints}
                               </Typography>
                             </div>
@@ -495,7 +477,8 @@ export function StudentTable({ handlePrint }) {
                               <Typography
                                 variant="small"
                                 color="blue-gray"
-                                className="font-normal">
+                                className="font-normal"
+                              >
                                 {`${completedGroupActs}/${totalGroupActs}`}
                                 {/* {completedGroupActs} */}
                               </Typography>
@@ -506,7 +489,8 @@ export function StudentTable({ handlePrint }) {
                               <Typography
                                 variant="small"
                                 color="blue-gray"
-                                className="font-normal">
+                                className="font-normal"
+                              >
                                 {individualPoints + groupingsPoints}
                               </Typography>
                             </div>
@@ -517,19 +501,22 @@ export function StudentTable({ handlePrint }) {
                                 variant="text"
                                 onClick={() => {
                                   handleOpen(_id);
-                                }}>
+                                }}
+                              >
                                 <PencilIcon className="h-4 w-4" />
                               </IconButton>
                             </Tooltip>
                             <Tooltip
                               content="Delete User"
-                              className="bg-red-600">
+                              className="bg-red-600"
+                            >
                               <IconButton
                                 variant="text"
                                 onClick={() => {
                                   handleConfirmationOpen();
                                   setDeleteId(studentId);
-                                }}>
+                                }}
+                              >
                                 <TrashIcon className="h-4 w-4" />
                               </IconButton>
                             </Tooltip>
@@ -538,7 +525,8 @@ export function StudentTable({ handlePrint }) {
                                 variant="text"
                                 onClick={() => {
                                   navigate(`${_id}`);
-                                }}>
+                                }}
+                              >
                                 <PresentationChartLineIcon className="h-4 w-4" />
                               </IconButton>
                             </Tooltip>
@@ -548,45 +536,57 @@ export function StudentTable({ handlePrint }) {
                     }
                   )}
                 </tbody>
-              </table>
-            </CardBody>
-            <CardFooter className="flex items-center justify-between p-4 bg-blue-gray-50">
-              <Typography variant="small" color="black" className="font-normal">
-                Page {studentFilter.page} of {totalPages}
+              )}
+            </table>
+            {loading && <Spinner className="mx-auto mt-10 mb-5" />}
+            {!loading && students.length === 0 && (
+              <Typography
+                color="blue-gray"
+                className="font-normal text-center text-3xl mt-6"
+              >
+                No Students were found..
               </Typography>
-              <div className="flex gap-2">
-                <Button
-                  variant="outlined"
-                  size="sm"
-                  color="black"
-                  onClick={() => {
-                    const { page } = studentFilter;
-                    if (page === 1) {
-                      setStudentFilter({ ...studentFilter, page: totalPages });
-                    } else {
-                      setStudentFilter({ ...studentFilter, page: page - 1 });
-                    }
-                  }}>
-                  Previous
-                </Button>
-                <Button
-                  variant="outlined"
-                  size="sm"
-                  color="black"
-                  onClick={() => {
-                    const { page } = studentFilter;
-                    if (page === totalPages) {
-                      setStudentFilter({ ...studentFilter, page: 1 });
-                    } else {
-                      setStudentFilter({ ...studentFilter, page: page + 1 });
-                    }
-                  }}>
-                  Next
-                </Button>
-              </div>
-            </CardFooter>
-          </div>
-        )}
+            )}
+          </CardBody>
+          <CardFooter className="flex items-center justify-between p-4 bg-blue-gray-50">
+            <Typography variant="small" color="black" className="font-normal">
+              Page {students.length === 0 ? "0" : studentFilter.page} of{" "}
+              {totalPages}
+            </Typography>
+            <div className="flex gap-2">
+              <Button
+                variant="outlined"
+                size="sm"
+                color="black"
+                onClick={() => {
+                  const { page } = studentFilter;
+                  if (page === 1) {
+                    setStudentFilter({ ...studentFilter, page: totalPages });
+                  } else {
+                    setStudentFilter({ ...studentFilter, page: page - 1 });
+                  }
+                }}
+              >
+                Previous
+              </Button>
+              <Button
+                variant="outlined"
+                size="sm"
+                color="black"
+                onClick={() => {
+                  const { page } = studentFilter;
+                  if (page === totalPages) {
+                    setStudentFilter({ ...studentFilter, page: 1 });
+                  } else {
+                    setStudentFilter({ ...studentFilter, page: page + 1 });
+                  }
+                }}
+              >
+                Next
+              </Button>
+            </div>
+          </CardFooter>
+        </div>
       </Card>
       {/* DIALOGS */}
       {editableStudent && (
@@ -611,7 +611,8 @@ export function StudentTable({ handlePrint }) {
       <Dialog
         open={confirmationOpen}
         handler={handleConfirmationOpen}
-        size="sm">
+        size="sm"
+      >
         <DialogHeader>Delete confirmation</DialogHeader>
         <DialogBody>Are you sure you want to delete this student?</DialogBody>
         <DialogFooter>
@@ -619,7 +620,8 @@ export function StudentTable({ handlePrint }) {
             variant="text"
             color="red"
             onClick={handleConfirmationOpen}
-            className="mr-1">
+            className="mr-1"
+          >
             <span>Cancel</span>
           </Button>
           <Button
@@ -629,7 +631,8 @@ export function StudentTable({ handlePrint }) {
               handleConfirmationOpen();
               await deleteStudent(deleteId);
               setDeleteFlag(!deleteFlag);
-            }}>
+            }}
+          >
             <span>Confirm</span>
           </Button>
         </DialogFooter>
