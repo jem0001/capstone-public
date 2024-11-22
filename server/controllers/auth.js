@@ -151,6 +151,7 @@ const login = async (req, res) => {
   const token = teacher.createToken();
   // Give cookie
   res.cookie("token", token, {
+    httpOnly: true,
     secure: true,
     sameSite: "none",
     domain: ".vercel.app",
@@ -211,6 +212,7 @@ const verifyEmail = async (req, res) => {
 
 const logout = async (req, res) => {
   res.clearCookie("token", {
+    httpOnly: true,
     secure: true,
     sameSite: "none",
     domain: ".vercel.app",

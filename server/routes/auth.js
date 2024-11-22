@@ -36,7 +36,7 @@ const router = require("express").Router();
 
 router.route("/register").post(register);
 router.route("/login").post(login);
-router.route("/logout").get(logout);
+router.route("/logout").post(logout);
 router.route("/verify-email/:token").get(verifyEmail);
 router.route("/forgot-password").post(forgotPassword);
 router.route("/reset-password/:token").post(resetPassword);
