@@ -15,6 +15,7 @@ import {
   Input,
   Option,
   Select,
+  Spinner,
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
@@ -26,6 +27,8 @@ import { useGlobalContext } from "../context/context";
 import { addWeekSchema } from "../utils/schemas";
 import { FaLock } from "react-icons/fa";
 import YouTube from "react-youtube";
+
+import weekBG from "../assets/weekBG.png";
 
 const WEEKS = [
   "week-1",
@@ -49,6 +52,7 @@ export function WeeksGrid({}) {
   const navigate = useNavigate();
   const { quarter } = useParams();
 
+  const [loading, setLoading] = useState(true);
   const [weeks, setWeeks] = useState([]);
   const [actCollections, setActCollections] = useState([]);
   const [lockFlag, setLockFlag] = useState(false);
@@ -114,11 +118,23 @@ export function WeeksGrid({}) {
   });
 
   useEffect(() => {
-    getAllWeek(quarter);
-    getActCollections();
-    console.log("useeffect");
+    const fetchData = async () => {
+      setLoading(true);
+      await getAllWeek(quarter);
+      await getActCollections();
+      console.log("useeffect");
+      setLoading(false);
+    };
+    fetchData();
   }, [lockFlag, changesFlag]);
 
+  if (loading) {
+    return (
+      <div className="w-full h-screen grid place-items-center absolute left-0 top-0">
+        <Spinner />
+      </div>
+    );
+  }
   return (
     <div>
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 w-full">
@@ -142,13 +158,15 @@ export function WeeksGrid({}) {
           /> */}
 
             <div
-              className="h-[300px] w-full rounded-lg object-contain object-center bg-[url('/src/assets/weekBG.png')] bg-cover text-white text-center shadow-[0px_20px_20px_10px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024] flex items-center justify-center"
+              style={{ backgroundImage: `url(${weekBG})` }}
+              className="h-[300px] w-full rounded-lg object-contain object-center bg-cover text-white text-center shadow-[0px_20px_20px_10px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024] flex items-center justify-center"
               onClick={() => {
                 if (week.open) {
                   console.log("navigating");
                   navigate(`${week.name}`);
                 }
-              }}>
+              }}
+            >
               <div className="bg-black bg-opacity-80 py-6 capitalize w-full">
                 <h3 className="font-semibold tracking-widest uppercase">
                   {week.name}
@@ -188,12 +206,14 @@ export function WeeksGrid({}) {
                         <Typography
                           variant="small"
                           color="blue-gray"
-                          className="font-normal opacity-80">
+                          className="font-normal opacity-80"
+                        >
                           We recommend unlocking when you're done with the
                           previous week
                         </Typography>
                       </div>
-                    }>
+                    }
+                  >
                     <LockClosedIcon
                       className="size-8 hover:text-green-500 text-white"
                       onClick={() => {
@@ -226,7 +246,8 @@ export function WeeksGrid({}) {
           onClick={() => {
             resetForm();
             handleAddOpen();
-          }}>
+          }}
+        >
           <PlusIcon className="size-20" />
         </div>
       </div>
@@ -240,7 +261,8 @@ export function WeeksGrid({}) {
             variant="text"
             color="red"
             onClick={handleOpen}
-            className="mr-1">
+            className="mr-1"
+          >
             <span>Cancel</span>
           </Button>
           <Button
@@ -249,7 +271,8 @@ export function WeeksGrid({}) {
             onClick={() => {
               handleOpen();
               unlock(id);
-            }}>
+            }}
+          >
             <span>Confirm</span>
           </Button>
         </DialogFooter>
@@ -259,7 +282,8 @@ export function WeeksGrid({}) {
         size="sm"
         open={addOpen}
         handler={handleAddOpen}
-        className="bg-transparent shadow-none">
+        className="bg-transparent shadow-none"
+      >
         <Card className="mx-auto w-full max-w-[96rem]">
           <CardBody className="flex flex-col gap-4">
             <Typography variant="h4" color="blue-gray">
@@ -275,7 +299,8 @@ export function WeeksGrid({}) {
               onBlur={handleBlur}
               onChange={(val) => {
                 setFieldValue("week", val);
-              }}>
+              }}
+            >
               {WEEKS.map((week) => (
                 <Option key={week} value={week}>
                   {week}
@@ -314,7 +339,8 @@ export function WeeksGrid({}) {
         size="sm"
         open={editOpen}
         handler={handleEditOpen}
-        className="bg-transparent shadow-none">
+        className="bg-transparent shadow-none"
+      >
         <Card className="mx-auto w-full max-w-[96rem]">
           <CardBody className="flex flex-col gap-4">
             <Typography variant="h4" color="blue-gray">
@@ -330,7 +356,8 @@ export function WeeksGrid({}) {
               onBlur={handleBlur}
               onChange={(val) => {
                 setFieldValue("week", val);
-              }}>
+              }}
+            >
               {WEEKS.map((week) => (
                 <Option key={week} value={week}>
                   {week}

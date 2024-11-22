@@ -73,7 +73,7 @@ const LoseWinRatio = () => {
       console.log(yAxis, "yyyyy");
 
       setChartData({
-        labels: [" WON", " LOSE"],
+        labels: [" WIN", " LOSE"],
         datasets: [
           {
             label: "Points",

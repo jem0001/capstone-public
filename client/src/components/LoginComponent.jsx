@@ -15,6 +15,8 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { useGlobalContext } from "../context/context";
 import { LoginSchema } from "../utils/schemas";
 
+import logo from "../assets/logo.png";
+
 const LoginComponent = () => {
   const { login } = useGlobalContext();
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +35,7 @@ const LoginComponent = () => {
   return (
     <div className="flex">
       <div className="w-96  rounded-none bg-[#1E201E] z-10 flex items-center justify-center">
-        <img src="/src/assets/logo.png" alt="" className="rounded-full h-72" />
+        <img src={logo} alt="logo" className="rounded-full h-72" />
       </div>
       <Card className="w-96 rounded-none">
         <CardBody>

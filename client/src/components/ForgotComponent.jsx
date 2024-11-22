@@ -14,6 +14,8 @@ import { useFormik } from "formik";
 import { useGlobalContext } from "../context/context";
 import { ForgotPasswordSchema, RegisterSchema } from "../utils/schemas";
 
+import logo from "../assets/logo.png";
+
 const ForgotComponent = () => {
   const { forgotPassword } = useGlobalContext();
   const {
@@ -40,7 +42,7 @@ const ForgotComponent = () => {
   return (
     <div className="flex">
       <div className="w-96 bg-[#1E201E] z-10 flex items-center justify-center">
-        <img src="/src/assets/logo.png" alt="" className="rounded-full h-72" />
+        <img src={logo} alt="logo" className="rounded-full h-72" />
       </div>
       <Card className="w-96 rounded-none">
         <CardBody className="flex flex-col gap-4">
@@ -68,7 +70,8 @@ const ForgotComponent = () => {
                 color={values.email ? "gray" : "blue-gray"}
                 disabled
                 className="!absolute right-1 top-1 rounded"
-                onClick={handleSubmit}>
+                onClick={handleSubmit}
+              >
                 Send
               </Button>
             ) : (
@@ -77,7 +80,8 @@ const ForgotComponent = () => {
                 color={values.email ? "gray" : "blue-gray"}
                 disabled={!values.email}
                 className="!absolute right-1 top-1 rounded"
-                onClick={handleSubmit}>
+                onClick={handleSubmit}
+              >
                 Send
               </Button>
             )}
@@ -94,7 +98,8 @@ const ForgotComponent = () => {
               href="/login"
               variant="small"
               color="blue-gray"
-              className="ml-1 font-bold">
+              className="ml-1 font-bold"
+            >
               Log in
             </Typography>
           </Typography>

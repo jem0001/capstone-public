@@ -1,15 +1,20 @@
 import React from "react";
+import logoNoName from "../../assets/logoNoName.png";
+import mainBG from "../../assets/mainBG.png";
 
 const MainHome = () => {
   return (
     <div
       id="home"
-      className="w-full h-screen bg-[url('/src/assets/mainBG.png')] bg-cover bg-no-repeat grid place-items-center"
+      className={`w-full h-screen bg-cover bg-no-repeat grid place-items-center`}
+      style={{
+        backgroundImage: `url(${mainBG})`,
+      }}
     >
       <div className="text-white flex items-center justify-center flex-col  text-center gap-3">
         <img
-          src="/src/assets/logoNoName.png"
-          alt=""
+          src={logoNoName}
+          alt="logoNoName"
           className="w-72 h-72 rounded-full"
         />
         <h1 className="font-black text-[3rem]">

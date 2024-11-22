@@ -9,6 +9,7 @@ import {
   DialogFooter,
   DialogHeader,
   CardFooter,
+  Spinner,
 } from "@material-tailwind/react";
 import { HiDotsVertical } from "react-icons/hi";
 import axios from "axios";
@@ -28,6 +29,7 @@ export function ActivitiesGrid() {
   const { deleteActivity, addActivity } = useGlobalContext();
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(true);
   const [activities, setActivities] = useState([]);
   const [changesFlag, setChangesFlag] = useState(false);
   const [id, setId] = useState({ button: "", week: "", name: "", id: "" });
@@ -76,10 +78,22 @@ export function ActivitiesGrid() {
   };
 
   useEffect(() => {
-    getActivities(quarter, week);
-    getActCollections();
+    const fetchData = async () => {
+      setLoading(true);
+      await getActivities(quarter, week);
+      await getActCollections();
+      setLoading(false);
+    };
+    fetchData();
   }, [changesFlag]);
 
+  if (loading) {
+    return (
+      <div className="w-full h-screen grid place-items-center absolute left-0 top-0">
+        <Spinner />
+      </div>
+    );
+  }
   if (activities.length === 0 || actCollections.length === 0) {
     <></>;
   }
@@ -105,7 +119,8 @@ export function ActivitiesGrid() {
                 className="m-0 w-3/6 shrink-0 rounded-none bg-blue-500  hover:cursor-pointer"
                 onClick={() => {
                   navigate(`${name}/${_id}`);
-                }}>
+                }}
+              >
                 <img
                   src={imageLink}
                   alt="card-image"
@@ -116,18 +131,21 @@ export function ActivitiesGrid() {
                 <Typography
                   variant="h5"
                   color="blue-gray"
-                  className="mb-2 text-black tracking-widest font-bold">
+                  className="mb-2 text-black tracking-widest font-bold"
+                >
                   <span className="uppercase">{newName}</span>
                 </Typography>
                 <div className="mb-2 text-black w-fit font-bold text-sm">
                   {`Activity ${activityNumber} -`}
                   <span
                     className="uppercase
-                  ">{` ${type}`}</span>
+                  "
+                  >{` ${type}`}</span>
                 </div>
                 <Typography
                   color="gray"
-                  className="font-normal text-black text-xs text-justify">
+                  className="font-normal text-black text-xs text-justify"
+                >
                   {description}
                 </Typography>
                 <hr className="border-[1px] border-[#1E201E] my-4 w-full"></hr>
@@ -142,7 +160,8 @@ export function ActivitiesGrid() {
                             body: "Are you sure you want to edit content?",
                           });
                           setId({ button: "edit", week, name, id: _id });
-                        }}>
+                        }}
+                      >
                         <EditButton />
                       </button>
                     </div>
@@ -155,7 +174,8 @@ export function ActivitiesGrid() {
                             body: "Are you sure you want to delete this activity? ",
                           });
                           setId({ button: "delete", id: _id });
-                        }}>
+                        }}
+                      >
                         <DeleteButton />
                       </button>
                     </div>
@@ -168,7 +188,8 @@ export function ActivitiesGrid() {
       )}
       <div
         className="min-w-[600px] h-[300px] bg-white border-4 border-[#3C3D37] overflow-hidden grid place-items-center shadow-[0px_20px_20px_10px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024] rounded-lg transition-shadow duration-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400"
-        onClick={handleAddOpen}>
+        onClick={handleAddOpen}
+      >
         <PlusIcon className="size-20" />
       </div>
 
@@ -180,7 +201,8 @@ export function ActivitiesGrid() {
             variant="text"
             color="red"
             onClick={handleOpen}
-            className="mr-1">
+            className="mr-1"
+          >
             <span>Cancel</span>
           </Button>
           <Button
@@ -196,7 +218,8 @@ export function ActivitiesGrid() {
                   `/activities/edit/${quarter}/${id.week}/${id.name}/${id.id}`
                 );
               }
-            }}>
+            }}
+          >
             <span>Confirm</span>
           </Button>
         </DialogFooter>
@@ -206,7 +229,8 @@ export function ActivitiesGrid() {
         size="lg"
         open={addOpen}
         handler={handleAddOpen}
-        className="bg-transparent shadow-none">
+        className="bg-transparent shadow-none"
+      >
         <Card className="mx-auto w-full max-w-[96rem]">
           <CardBody className="flex flex-col gap-4">
             <Typography variant="h4" color="blue-gray">
@@ -229,11 +253,13 @@ export function ActivitiesGrid() {
                   onClick={(e) => {
                     setSelectedActivity(_id);
                     setSelectError("");
-                  }}>
+                  }}
+                >
                   <div>
                     <div
                       className="bg-yellow-200 w-80 h-48 bg-contain bg-no-repeat mx-auto"
-                      style={{ backgroundImage: `url(${imageLink})` }}></div>
+                      style={{ backgroundImage: `url(${imageLink})` }}
+                    ></div>
                     <div className=" text-sm flex items-center justify-around bg-[#059212] py-4 mt-[-1rem] text-white font-bold tracking-widest">
                       <p>
                         <span className="uppercase"> {name} </span>

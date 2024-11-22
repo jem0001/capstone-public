@@ -16,6 +16,8 @@ import { RegisterSchema } from "../utils/schemas";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { useGlobalContext } from "../context/context";
 
+import logo from "../assets/logo.png";
+
 const SignupComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { register } = useGlobalContext();
@@ -40,11 +42,7 @@ const SignupComponent = () => {
     <div className="">
       <div className="flex">
         <div className="w-96  rounded-none bg-[#1E201E] z-10 flex items-center justify-center">
-          <img
-            src="/src/assets/logo.png"
-            alt=""
-            className="rounded-full h-72"
-          />
+          <img src={logo} alt="logo" className="rounded-full h-72" />
         </div>
         <Card className="w-96 rounded-none">
           <div>
@@ -108,7 +106,8 @@ const SignupComponent = () => {
               <div
                 onClick={() => {
                   setShowPassword(!showPassword);
-                }}>
+                }}
+              >
                 {showPassword ? (
                   <EyeIcon className="absolute right-1 top-[50%] translate-x-[-50%] translate-y-[-50%] rounded size-5" />
                 ) : (
@@ -136,7 +135,8 @@ const SignupComponent = () => {
               <div
                 onClick={() => {
                   setShowPassword(!showPassword);
-                }}>
+                }}
+              >
                 {showPassword ? (
                   <EyeIcon className="absolute right-1 top-[50%] translate-x-[-50%] translate-y-[-50%] rounded size-5" />
                 ) : (
@@ -161,7 +161,8 @@ const SignupComponent = () => {
                 href="/login"
                 variant="small"
                 color="blue-gray"
-                className="ml-1 font-bold text-[#1E201E]">
+                className="ml-1 font-bold text-[#1E201E]"
+              >
                 Log in
               </Typography>
             </Typography>

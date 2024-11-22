@@ -12,6 +12,7 @@ import {
   DialogHeader,
   Select,
   Option,
+  Spinner,
 } from "@material-tailwind/react";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
@@ -38,7 +39,8 @@ function BillingCard({
       shadow={false}
       className={`rounded-lg border-4 shadow-md ${
         status === "won" ? "border-green-500 " : "border-red-500"
-      } p-4 my-4`}>
+      } p-4 my-4`}
+    >
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3 ">
           <div className="border border-gray-200 p-2.5 rounded-lg size-16">
@@ -52,7 +54,8 @@ function BillingCard({
             <Typography
               variant="small"
               color="blue-gray"
-              className="mb-1 font-bold">
+              className="mb-1 font-bold"
+            >
               {fullName}
             </Typography>
             <Typography className="!text-gray-600 text-xs mb-1 font-bold">
@@ -73,7 +76,8 @@ function BillingCard({
               <span
                 className={`${
                   status === "won" ? "text-green-500" : "text-red-500"
-                } text-lg mx-2`}>
+                } text-lg mx-2`}
+              >
                 {pointsAdded} points{" "}
               </span>
               {`for participating in Activity ${activityNumber} of Quarter ${
@@ -110,7 +114,8 @@ function BillingCard({
             onClick={() => {
               handleOpen();
               setIdToDelete(_id);
-            }}>
+            }}
+          >
             <TrashIcon className="h-4 w-4 text-red-500 mt-3" />
             <Typography className="!font-semibold text-xs text-red-500 md:block hidden mt-4">
               delete
@@ -125,6 +130,7 @@ function BillingCard({
 function HistoryComponent() {
   const { deleteHistory } = useGlobalContext();
 
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [idToDelete, setIdToDelete] = useState(null);
   const { section, batch } = useParams();
@@ -138,11 +144,13 @@ function HistoryComponent() {
   const handleOpen = () => setOpen(!open);
 
   const getAllHistory = async () => {
+    setLoading(true);
     const response = await axios.get(
       `/histories/?batch=${batch}&section=${section}&dateFilter=${filter.dateFilter}&status=${filter.status}&type=${filter.type}`
     );
     console.log("history>>>>>", response.data.histories);
     setHistories(response.data.histories);
+    setLoading(false);
   };
 
   const [refreshFlag, setRefreshFlag] = useState(false);
@@ -157,16 +165,12 @@ function HistoryComponent() {
         <CardHeader
           floated={false}
           shadow={false}
-          className="rounded-none flex gap-2 flex-col md:flex-row items-start !justify-between p-4 overflow-visible items-start">
+          className="rounded-none flex gap-2 flex-col md:flex-row items-start !justify-between p-4 overflow-visible items-start"
+        >
           <div className="w-full mb-2">
             <Typography className="font-bold" color="blue-gray" variant="h5">
               <span className="text-green-500">Points</span>
               <span className="text-red-500"> History</span>
-            </Typography>
-            <Typography
-              className="mt-1 !font-normal !text-gray-600"
-              variant="small">
-              View and update details quickly and easily.
             </Typography>
           </div>
           <div className="flex items-center gap-4">
@@ -176,7 +180,8 @@ function HistoryComponent() {
                 value={filter.dateFilter}
                 onChange={(val) => {
                   setFilter({ ...filter, dateFilter: val });
-                }}>
+                }}
+              >
                 <Option value="">All dates</Option>
                 <Option value="today">Today</Option>
                 <Option value="yesterday">Yesterday</Option>
@@ -190,7 +195,8 @@ function HistoryComponent() {
                 value={filter.status}
                 onChange={(val) => {
                   setFilter({ ...filter, status: val });
-                }}>
+                }}
+              >
                 <Option value="">Both</Option>
                 <Option value="won">Correct</Option>
                 <Option value="lost">Incorrect</Option>
@@ -202,7 +208,8 @@ function HistoryComponent() {
                 value={filter.type}
                 onChange={(val) => {
                   setFilter({ ...filter, type: val });
-                }}>
+                }}
+              >
                 <Option value="">Both</Option>
                 <Option value="groupings">Groupings</Option>
                 <Option value="individual">Individual</Option>
@@ -212,10 +219,11 @@ function HistoryComponent() {
         </CardHeader>
 
         <CardBody className="flex flex-col gap-4 !p-4">
-          {histories.length === 0 && (
+          {loading && <Spinner className="mx-auto" />}
+          {histories.length === 0 && !loading && (
             <p className="text-2xl text-center">No data was found..</p>
           )}
-          {histories.length > 0 && (
+          {histories.length > 0 && !loading && (
             <div>
               {histories.map((props, key) => (
                 <BillingCard
@@ -240,7 +248,8 @@ function HistoryComponent() {
             variant="text"
             color="red"
             onClick={handleOpen}
-            className="mr-1">
+            className="mr-1"
+          >
             <span>Cancel</span>
           </Button>
           <Button
@@ -250,7 +259,8 @@ function HistoryComponent() {
               handleOpen();
               await deleteHistory(idToDelete);
               setRefreshFlag(!refreshFlag);
-            }}>
+            }}
+          >
             <span>Confirm</span>
           </Button>
         </DialogFooter>

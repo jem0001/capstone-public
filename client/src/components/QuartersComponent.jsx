@@ -1,13 +1,17 @@
 import { Card } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
+import image1 from "../assets/quarters_images/1.png";
+import image2 from "../assets/quarters_images/2.png";
+import image3 from "../assets/quarters_images/3.png";
+import image4 from "../assets/quarters_images/4.png";
 
 // array to object
 // new with images
 const quarters = [
-  { name: "quarter-1", image: "/src/assets/quarters_images/1.png" },
-  { name: "quarter-2", image: "/src/assets/quarters_images/2.png" },
-  { name: "quarter-3", image: "/src/assets/quarters_images/3.png" },
-  { name: "quarter-4", image: "/src/assets/quarters_images/4.png" },
+  { name: "quarter-1", image: image1 },
+  { name: "quarter-2", image: image2 },
+  { name: "quarter-3", image: image3 },
+  { name: "quarter-4", image: image4 },
 ];
 
 const QuartersComponent = () => {
