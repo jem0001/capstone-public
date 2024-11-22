@@ -74,12 +74,6 @@ const register = async (req, res) => {
     logger: true,
   });
 
-  res.status(201).json({
-    teacher,
-    token,
-    message: "Please check your email for verification.",
-  });
-
   await new Promise((resolve, reject) => {
     // verify connection configuration
     transporter.verify(function (error, success) {
@@ -122,6 +116,12 @@ const register = async (req, res) => {
         resolve(info);
       }
     });
+  });
+
+  res.status(201).json({
+    teacher,
+    token,
+    message: "Please check your email for verification.",
   });
 };
 
@@ -231,12 +231,6 @@ const forgotPassword = async (req, res) => {
     },
   });
 
-  res.status(200).json({
-    token,
-    status: true,
-    message: "Email sent, check your email",
-  });
-
   await new Promise((resolve, reject) => {
     // verify connection configuration
     transporter.verify(function (error, success) {
@@ -277,6 +271,12 @@ const forgotPassword = async (req, res) => {
         resolve(info);
       }
     });
+  });
+
+  res.status(200).json({
+    token,
+    status: true,
+    message: "Email sent, check your email",
   });
 };
 
