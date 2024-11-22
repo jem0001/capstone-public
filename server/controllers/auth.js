@@ -70,6 +70,20 @@ const register = async (req, res) => {
       user: process.env.GMAIL,
       pass: process.env.GMAIL_PASSWORD,
     },
+    secure: true,
+  });
+
+  await new Promise((resolve, reject) => {
+    // verify connection configuration
+    transporter.verify(function (error, success) {
+      if (error) {
+        console.log(error);
+        reject(error);
+      } else {
+        console.log("Server is ready to take our messages");
+        resolve(success);
+      }
+    });
   });
 
   // Compose email
@@ -83,9 +97,9 @@ const register = async (req, res) => {
           teacher.firstName.charAt(0).toUpperCase() + teacher.firstName.slice(1)
         },</p>
         <p>Thank you for registering on our platform. To complete your registration, please verify your email address by clicking the link below:</p>
-        <a href="http://localhost:5173/verify-email/${token}">Verify Your Email</a>
+        <a href="https://sayap.vercel.app/verify-email/${token}">Verify Your Email</a>
         <p>If you did not register on our platform, please ignore this email.</p>
-        <p>Thank you,<br>The Team</p>
+        <p>Thank you,<br>Sayap Team</p>
       `,
   };
 
@@ -96,16 +110,17 @@ const register = async (req, res) => {
   });
 
   // Send email
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      throw new CustomError(401, "Authentication Error");
-    } else {
-      res.status(201).json({
-        teacher,
-        token,
-        message: "Please verify your account, check your email",
-      });
-    }
+  await new Promise((resolve, reject) => {
+    // send mail
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        console.log(info);
+        resolve(info);
+      }
+    });
   });
 };
 
@@ -215,6 +230,19 @@ const forgotPassword = async (req, res) => {
     },
   });
 
+  await new Promise((resolve, reject) => {
+    // verify connection configuration
+    transporter.verify(function (error, success) {
+      if (error) {
+        console.log(error);
+        reject(error);
+      } else {
+        console.log("Server is ready to take our messages");
+        resolve(success);
+      }
+    });
+  });
+
   var mailOptions = {
     from: process.env.GMAIL,
     to: email,
@@ -225,22 +253,29 @@ const forgotPassword = async (req, res) => {
         teacher.firstName.charAt(0).toUpperCase() + teacher.firstName.slice(1)
       },</p>
       <p>We received a request to reset your password for your account. Click the link below to reset your password:</p>
-      <p><a href="http://localhost:5173/resetPassword/${token}">Reset Password</a></p>
+      <p><a href="https://sayap.vercel.app/resetPassword/${token}">Reset Password</a></p>
       <p>If you did not request a password reset, please ignore this email or contact our support team if you have any questions.</p>
-      <p>Thank you,<br>The Team</p>
+      <p>Thank you,<br>Sayap Team</p>
     `,
   };
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      throw new CustomError(500).json({ message: "Error sending email" });
-    } else {
-      return res.json({
-        token,
-        status: true,
-        message: "Email sent, check your email",
-      });
-    }
+  res.status(200).json({
+    token,
+    status: true,
+    message: "Email sent, check your email",
+  });
+
+  await new Promise((resolve, reject) => {
+    // send mail
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        console.log(info);
+        resolve(info);
+      }
+    });
   });
 };
 
