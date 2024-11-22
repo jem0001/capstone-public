@@ -154,6 +154,7 @@ const login = async (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: "None",
+    domain: "capstone-api-beta.vercel.app",
   });
   res.status(200).json({ teacher, token, message: "Logged in" });
 };
@@ -209,7 +210,12 @@ const verifyEmail = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  res.clearCookie("token", { httpOnly: true, secure: true, sameSite: "None" });
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+    domain: "capstone-api-beta.vercel.app",
+  });
   res.status(200).json({ message: "Logout successful" });
 };
 
