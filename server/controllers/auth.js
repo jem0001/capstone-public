@@ -209,7 +209,7 @@ const verifyEmail = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", { secure: true, sameSite: "None" });
   res.status(200).json({ message: "Logout successful" });
 };
 
