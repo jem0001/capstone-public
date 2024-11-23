@@ -29,7 +29,7 @@ app.use(mongoSanitize());
 app.use(
   rateLimit({
     windowMs: 5 * 60 * 1000,
-    max: 300,
+    max: 10000,
   })
 );
 
