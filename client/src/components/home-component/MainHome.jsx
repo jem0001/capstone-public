@@ -1,6 +1,8 @@
 import React from "react";
 import logoNoName from "../../assets/logoNoName.png";
 import mainBG from "../../assets/mainBG.png";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const MainHome = () => {
   return (
@@ -12,11 +14,13 @@ const MainHome = () => {
       }}
     >
       <div className="text-white flex items-center justify-center flex-col  text-center gap-3">
-        <img
-          src={logoNoName}
-          alt="logoNoName"
+        <LazyLoadImage
+          alt="logo"
+          src={logoNoName} // use normal <img> attributes as props
+          effect="blur"
           className="w-72 h-72 rounded-full"
         />
+
         <h1 className="font-black text-[3rem]">
           <span className="text-transparent">S A Y</span> A P
         </h1>

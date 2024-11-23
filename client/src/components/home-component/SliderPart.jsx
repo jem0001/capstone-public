@@ -20,7 +20,7 @@ const SliderPart = () => {
   const bgImages = [Clash, Hang, Drag, Explore, Easy, Hard, Pair, Piece];
 
   return (
-    <div className="mt-16 text-center">
+    <div className="mt-16 text-center ">
       <h1 className="font-black text-[2rem] text-[#1E201E]" data-aos="fade-up">
         LIST OF GAMES
       </h1>

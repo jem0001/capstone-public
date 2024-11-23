@@ -29,6 +29,8 @@ import { FaLock } from "react-icons/fa";
 import YouTube from "react-youtube";
 
 import weekBG from "../assets/weekBG.png";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Blurhash } from "react-blurhash";
 
 const WEEKS = [
   "week-1",
@@ -53,6 +55,7 @@ export function WeeksGrid({}) {
   const { quarter } = useParams();
 
   const [loading, setLoading] = useState(true);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [weeks, setWeeks] = useState([]);
   const [actCollections, setActCollections] = useState([]);
   const [lockFlag, setLockFlag] = useState(false);
@@ -158,8 +161,7 @@ export function WeeksGrid({}) {
           /> */}
 
             <div
-              style={{ backgroundImage: `url(${weekBG})` }}
-              className="h-[300px] w-full rounded-lg object-contain object-center bg-cover text-white text-center shadow-[0px_20px_20px_10px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024] flex items-center justify-center"
+              className="relative overflow-hidden h-[300px] w-full rounded-lg text-white text-center shadow-[0px_20px_20px_10px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024] flex items-center justify-center"
               onClick={() => {
                 if (week.open) {
                   console.log("navigating");
@@ -167,7 +169,34 @@ export function WeeksGrid({}) {
                 }
               }}
             >
-              <div className="bg-black bg-opacity-80 py-6 capitalize w-full">
+              <div className="h-full w-full absolute z-[0]">
+                <LazyLoadImage
+                  alt="week-bg"
+                  src={weekBG}
+                  effect="blur"
+                  height={"100%"}
+                  className="w-full h-full object-cover object-center rounded-lg"
+                  onLoad={() => {
+                    setIsImageLoaded(true);
+                  }}
+                />
+              </div>
+
+              {!isImageLoaded && (
+                <div className="w-full h-full absolute rounded-lg">
+                  <Blurhash
+                    hash="LGHxQaBmD+IU%%td%D9u9*-mt1Mw"
+                    width={"100%"}
+                    height={"100%"}
+                    resolutionX={32}
+                    resolutionY={32}
+                    punch={1}
+                    className="w-full h-full rounded-lg"
+                  />
+                </div>
+              )}
+
+              <div className="bg-black bg-opacity-80 py-6 capitalize w-full z-10">
                 <h3 className="font-semibold tracking-widest uppercase">
                   {week.name}
                 </h3>

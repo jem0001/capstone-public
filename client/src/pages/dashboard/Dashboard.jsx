@@ -16,6 +16,8 @@ import AsyncSelect from "../../utils/AsyncSelect";
 const Dashboard = () => {
   const { dashboardFilter, setDashboardFilter, getAllStudents } =
     useGlobalContext();
+
+  const [loading, setLoading] = useState(true);
   const [sections, setSections] = useState([]);
   const [batches, setBatches] = useState([]);
   const [studentCount, setStudentCount] = useState();
@@ -64,22 +66,34 @@ const Dashboard = () => {
         section: dashboardFilter.section,
       });
       setStudentCount(nbHits);
+      setLoading(false);
     })();
   }, [dashboardFilter]);
 
-  if (batches.length === 0 || sections.length === 0) {
+  if (loading) {
+    return (
+      <div className="w-full h-full grid place-items-center">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (batches.length === 0 && !loading) {
     return <div> No data was found...</div>;
   }
+
   return (
     <div className="w-full h-full bg-gradient-to-t from-gray-900 to-slate-50 p-16">
       <div
         className="bg-white container mx-auto grid place-items-center content-center p-8 shadow-[0px_20px_20px_10px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024,0px_3px_8px_0px_#00000024]
- border-[#697565] border-[6px] rounded-xl">
+ border-[#697565] border-[6px] rounded-xl"
+      >
         <div className="grid w-full grid-cols-1 lg:grid-cols-4 gap-4">
           <Typography
             variant="h3"
             color="blue-gray"
-            className="text-center col-span-4 py-6">
+            className="text-center col-span-4 py-6"
+          >
             Main Dashboard
           </Typography>
           <div className="flex justify-between col-span-4 gap-8 top-4 z-10 ">
@@ -88,7 +102,8 @@ const Dashboard = () => {
               value={dashboardFilter.batch}
               onChange={(val) => {
                 setDashboardFilter({ ...dashboardFilter, batch: val });
-              }}>
+              }}
+            >
               {batches.map((batch) => (
                 <Option key={batch} value={batch}>
                   {batch}
@@ -100,7 +115,8 @@ const Dashboard = () => {
               value={dashboardFilter.quarter}
               onChange={(val) => {
                 setDashboardFilter({ ...dashboardFilter, quarter: val });
-              }}>
+              }}
+            >
               <Option value="">All Quarters</Option>
               <Option value="quarter-1">Quarter 1</Option>
               <Option value="quarter-2">Quarter 2</Option>
@@ -112,7 +128,8 @@ const Dashboard = () => {
               value={dashboardFilter.section}
               onChange={(val) => {
                 setDashboardFilter({ ...dashboardFilter, section: val });
-              }}>
+              }}
+            >
               {sections.map((section) => (
                 <Option key={section} value={section}>
                   {section}
@@ -129,7 +146,7 @@ const Dashboard = () => {
             </div>
             <BarChartSectionPoints />
           </Card>
-          <Card className="lg:col-span-1 border-4 border-black text-black  ">
+          <Card className="lg:col-span-1 border-4 border-black text-black flex flex-col">
             {/* <div className="flex w-full h-full flex-col gap-2">
               <div className="bg-blue-500 w-full h-full flex items-center justify-center flex-co rounded-md">
                 <Typography variant="h6" color="white" className="text-center">
@@ -143,8 +160,8 @@ const Dashboard = () => {
                 Number of Students
               </Typography>
             </div>
-            <div>
-              <p className="text-black text-[7rem] font-bold flex items-center justify-center mt-8">
+            <div className="flex-1 grid place-items-center">
+              <p className="text-black text-[7rem] font-bold grid place-items-center justify-center ">
                 {studentCount}
               </p>
             </div>

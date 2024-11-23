@@ -44,11 +44,14 @@ const VerifyEmail = () => {
   if (verified) {
     return (
       <div className="flex items-center justify-center h-screen bg-green-500  bg-cover">
-        <div className="text-center flex gap-8 flex-col">
-          <p className="uppercase font-bold text-white text-8xl">{message}</p>
+        <div className="text-center flex gap-8 flex-col p-4">
+          <p className="uppercase font-bold text-white text-7xl md:text-8xl ">
+            {message}
+          </p>
           <Link
             className="px-4 py-8 bg-transparent text-3xl text-white border-white border-8 tracking-widest mt-4 hover:bg-white hover:text-green-500 rounded-lg"
-            to={"/login"}>
+            to={"/login"}
+          >
             Proceed to Login
           </Link>
         </div>
@@ -58,7 +61,9 @@ const VerifyEmail = () => {
 
   return (
     <div className="text-white h-screen w-full grid place-items-center bg-red-500">
-      <p className="uppercase font-bold text-white text-7xl">{message}</p>
+      <p className="text-center p-4 uppercase font-bold text-white text-7xl">
+        {message}
+      </p>
     </div>
   );
 };

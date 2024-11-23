@@ -2,6 +2,10 @@ import React from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import learning from "../../assets/home-images/learning.png";
+import qr from "../../assets/home-images/qr.png";
+import threeD from "../../assets/home-images/3d.png";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const VerticalCards = () => {
   useEffect(() => {
@@ -16,12 +20,10 @@ const VerticalCards = () => {
           <div
             data-aos="fade-right"
             className="flex
-        ">
-            <img
-              src="/src/components/home-images/learning.png"
-              alt=""
-              className="w-[25rem]"
-            />
+        "
+          >
+            <img src={learning} alt="" className="w-[25rem]" />
+
             <div className="border-[#1E201E] border-4 bg-transparent flex flex-col items-center justify-center p-6 gap-4">
               <h1 className="font-black  text-[1.5rem] text-[#1E201E] tracking-widest">
                 GAME-BASED LEARNING
@@ -36,7 +38,8 @@ const VerticalCards = () => {
           <div
             data-aos="fade-left"
             className="flex
-        ">
+        "
+          >
             <div className="border-[#1E201E] border-4 bg-transparent flex flex-col items-center justify-center p-6 gap-4">
               <h1 className="font-black text-[1.5rem] text-[#1E201E] tracking-widest">
                 QR-BASED POINTING SYSTEM
@@ -47,21 +50,14 @@ const VerticalCards = () => {
                 and awarding points instantly.
               </p>
             </div>
-            <img
-              src="/src/components/home-images/qr.png"
-              alt=""
-              className="w-[25rem]"
-            />
+            <img src={qr} alt="" className="w-[25rem]" />
           </div>
           <div
             data-aos="fade-right"
             className="flex
-        ">
-            <img
-              src="/src/components/home-images/3d.png"
-              alt=""
-              className="w-[25rem]"
-            />
+        "
+          >
+            <img src={threeD} alt="" className="w-[25rem]" />
             <div className="border-[#1E201E] border-4 bg-transparent flex flex-col items-center justify-center p-6 gap-4">
               <h1 className="font-black text-[1.5rem] text-[#1E201E] tracking-widest">
                 CUSTOMIZABLE CONTENTS

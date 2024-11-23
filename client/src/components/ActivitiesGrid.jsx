@@ -24,6 +24,7 @@ import { useGlobalContext } from "../context/context";
 import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
 import { renameGameTitle } from "../utils/misc-functions";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 export function ActivitiesGrid() {
   const { week, quarter } = useParams();
   const { deleteActivity, addActivity } = useGlobalContext();
@@ -116,14 +117,21 @@ export function ActivitiesGrid() {
               <CardHeader
                 shadow={false}
                 floated={false}
-                className="m-0 w-3/6 shrink-0 rounded-none bg-blue-500  hover:cursor-pointer"
+                className="m-0 w-3/6 shrink-0 rounded-none hover:cursor-pointer"
                 onClick={() => {
                   navigate(`${name}/${_id}`);
                 }}
               >
-                <img
+                {/* <img
                   src={imageLink}
                   alt="card-image"
+                  className="h-full w-full bg-cover rounded-none"
+                /> */}
+                <LazyLoadImage
+                  alt="card-image"
+                  src={imageLink}
+                  effect="blur"
+                  height={"100%"}
                   className="h-full w-full bg-cover rounded-none"
                 />
               </CardHeader>
