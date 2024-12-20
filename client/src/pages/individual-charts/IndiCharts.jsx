@@ -83,32 +83,47 @@ const IndiCharts = () => {
 
           <Card className="lg:col-span-3">
             <div className="flex justify-around items-center p-4 border-[#697565] border-4 rounded-lg">
-              <ProgressProvider
-                valueStart={0}
-                valueEnd={(completedGroupActs / totalGroupActs) * 100}
-              >
-                {(value) => (
-                  <div className="size-40">
-                    <CircularProgressbarWithChildren
-                      value={value}
-                      styles={buildStyles({
-                        textColor: "red",
-                        pathColor: "turquoise",
-                        trailColor: "#003285",
-                      })}
-                    >
-                      {`${completedGroupActs}/${totalGroupActs}`}
-                    </CircularProgressbarWithChildren>
-                  </div>
-                )}
-              </ProgressProvider>
-
-              <div className="rounded-full size-40 bg-[#2A629A] grid place-items-center text-white">
-                {totalPoints}
+              <div className="grid place-items-center gap-4">
+                <ProgressProvider
+                  valueStart={0}
+                  valueEnd={(completedGroupActs / totalGroupActs) * 100}
+                >
+                  {(value) => (
+                    <div className="size-40">
+                      <CircularProgressbarWithChildren
+                        value={value}
+                        styles={buildStyles({
+                          textColor: "red",
+                          pathColor: "turquoise",
+                          trailColor: "#003285",
+                        })}
+                      >
+                        {`${completedGroupActs}/${totalGroupActs}`}
+                      </CircularProgressbarWithChildren>
+                    </div>
+                  )}
+                </ProgressProvider>
+                <p className="text-sm font-semibold">
+                  Group Activities Progress
+                </p>
               </div>
 
-              <div className="rounded-full size-[220px] grid place-items-center">
-                <LoseWinRatio />
+              <div className="grid place-items-center gap-4">
+                <div className="rounded-full size-40 bg-[#2A629A] grid place-items-center text-white ">
+                  {totalPoints}
+                </div>
+                <p className="text-sm font-semibold">
+                  Total Points Accumulated
+                </p>
+              </div>
+
+              <div>
+                <div className="rounded-full size-[220px] grid place-items-center -mt-6">
+                  <LoseWinRatio />
+                </div>
+                <p className="text-sm -mt-4 font-semibold pl-5">
+                  Win/Loss Ratio
+                </p>
               </div>
             </div>
           </Card>
