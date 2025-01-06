@@ -42,6 +42,7 @@ import EditFlip from "./pages/editGames/EditFlip";
 import NonFlipHard from "./pages/games/non-flip-hard/NonFlipHard";
 import PuzzleLanding from "./pages/games/puzzle/screens/PuzzleLanding";
 import CountDown from "./pages/games/puzzle/components/CountDown";
+import Help from "./pages/Help";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
           <Route path="/" element={<Home />}>
             <Route path="/" element={<HomeComponent />} />
             <Route path="student" element={<Student />} />
+            <Route path="help" element={<Help />} />
             <Route path="student/:id" element={<IndiCharts />} />
             <Route
               path="student/history/:batch/:section"

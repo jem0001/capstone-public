@@ -30,6 +30,7 @@ import {
   PresentationChartLineIcon,
   KeyIcon,
   UserIcon,
+  InformationCircleIcon,
 } from "@heroicons/react/24/solid";
 import {
   ChevronRightIcon,
@@ -183,6 +184,18 @@ export function SidebarComponent({ handleLogout, teacher }) {
                 </List>
               </AccordionBody>
             </Accordion>
+
+            <ListItem
+              onClick={() => {
+                navigate("/help");
+                closeDrawer();
+              }}
+            >
+              <ListItemPrefix>
+                <InformationCircleIcon className="h-5 w-5 text-[#1E201E]" />
+              </ListItemPrefix>
+              Help
+            </ListItem>
 
             <ListItem onClick={handleLogout}>
               <ListItemPrefix>
