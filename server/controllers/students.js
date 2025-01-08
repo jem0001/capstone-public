@@ -82,11 +82,11 @@ const getAllStudent = async (req, res) => {
 
   let result = Student.find(queryObject);
 
-  // Sorting
-  if (sort) {
-    const sortList = sort.split(",").join(" ");
-    result = result.collation({ locale: "en", strength: 2 }).sort(sortList);
-  }
+  // // Sorting moved after aggregation
+  // if (sort) {
+  //   const sortList = sort.split(",").join(" ");
+  //   result = result.collation({ locale: "en", strength: 2 }).sort(sortList);
+  // }
 
   // Paginaton
   const skip = (page - 1) * limit;
@@ -125,6 +125,34 @@ const getAllStudent = async (req, res) => {
 
   // Convert aggregated students to an array
   students = Object.values(aggregatedStudents);
+
+  // Calculate totalPoints for each student, call it as points for frontend ease
+  // clutch modification
+  students.forEach((student) => {
+    student.points = student.individualPoints + student.groupingsPoints;
+  });
+
+  // Apply sorting after aggregation
+  if (sort) {
+    const sortFields = sort.split(","); // Split by commas
+    const sortObject = {};
+
+    sortFields.forEach((field) => {
+      const direction = field.startsWith("-") ? -1 : 1;
+      const fieldName = field.replace("-", "");
+      sortObject[fieldName] = direction;
+    });
+
+    students = students.sort((a, b) => {
+      // Perform sorting manually based on the `sortObject`
+      for (let field in sortObject) {
+        if (a[field] !== b[field]) {
+          return (a[field] < b[field] ? -1 : 1) * sortObject[field];
+        }
+      }
+      return 0; // If they are equal, no change in order
+    });
+  }
 
   res.status(200).json({
     studentTotalCount,
