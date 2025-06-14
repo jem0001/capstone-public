@@ -39,7 +39,7 @@ Watch the full demo presentation here:
 ## View Deployed App
 
 Try the live version here:  
-**[View Deployed Application](sayap.vercel.app/login)**
+**[View Deployed Application](https://sayap.vercel.app/login)**
 
 
 
