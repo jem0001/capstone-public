@@ -34,7 +34,7 @@ To enhance engagement and understanding of Araling Panlipunan topics through mul
 ## Demo
 
 Watch the full demo presentation here:  
-**[Click to Watch Video Presentation]([https://www.youtube.com/watch?v=YOUR_VIDEO_ID_HERE](https://drive.google.com/file/d/1j2pNa3vr4N-pQFwTqtNt7dK1csCK9cAo/view?fbclid=IwY2xjawK5qO9leHRuA2FlbQIxMABicmlkETF3S1I4UnZuSmtXMVNBdVBZAR7eoHQWF8N-j-CLE60g8YVVlD6BOzNw3FEh0UzrBrrZe_170C0m1q9mtJsq5g_aem_xJwVh4RMhhZkfNcK5CF4bA))**
+**[Click to Watch Video Presentation](https://drive.google.com/file/d/1j2pNa3vr4N-pQFwTqtNt7dK1csCK9cAo/view?fbclid=IwY2xjawK5qO9leHRuA2FlbQIxMABicmlkETF3S1I4UnZuSmtXMVNBdVBZAR7eoHQWF8N-j-CLE60g8YVVlD6BOzNw3FEh0UzrBrrZe_170C0m1q9mtJsq5g_aem_xJwVh4RMhhZkfNcK5CF4bA)**
 
 
 
